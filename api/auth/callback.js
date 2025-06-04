@@ -34,7 +34,8 @@ export default async function handler(req, res) {
         sameSite: 'lax'
       }));
 
-      res.redirect('/');
+      // ✅ Redirect to /api/drive instead of /
+      res.redirect('/api/drive');
     } else {
       console.error('❌ Token error:', tokenData);
       res.status(400).json({ error: 'Failed to get token', details: tokenData });
