@@ -1,0 +1,33 @@
+openapi: 3.0.0
+info:
+  title: UniCredit Drive Proxy
+  version: 1.0.0
+  description: Accesses the user's Google Drive and lists files for credit analysis.
+
+servers:
+  - url: https://google-drive-gpt-3.vercel.app
+
+paths:
+  /api/drive:
+    get:
+      operationId: listDriveFiles
+      summary: List the user's Google Drive files
+      responses:
+        '200':
+          description: A list of Google Drive files
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  files:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        name:
+                          type: string
+                        id:
+                          type: string
+                        mimeType:
+                          type: string
