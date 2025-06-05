@@ -2,7 +2,7 @@
 
 export default async function handler(req, res) {
   // ✅ Hardcoded values for testing
-  const accessToken = "ya29.a0AW4XtxgAlZV4N1HYucsKNkXmqzi64GYmeapYHPv-Ilv1v5-Pcvgm24Jm0_VCB8Ih6jndZ0cXsU94dRoa4bRQHMQOg8MCNJRL_9ZWLlKTtbINorvvFjyI_7_pD7QHSj0HzUFTbH_bnBzlmV670Ew5iJbmllaQOK7z5_fLz8i8aCgYKAeYSARYSFQHGX2Mi15Z5ymxF8yXkrUwPv0WaDw0175";
+  const accessToken = "ya29.a0AW4Xtxi7A84W8zo5C8hHKJJsP7UBcg2CJUSJVMppdxEx9onYeO4F7cijP3KKlmWcKxWQRpqh-xdW0Ek-YPrG7ZU62b8baY4ORkxg8e0xPlzt61JMBDXlGj4PA7swBfPyrhy1cixAKz1M9_e8izh6Riw7tiDNq7s1iW3jDBELaCgYKAV4SARYSFQHGX2Mi6J7VJHSMGW6uEtQYU7jRqQ0175";
   const fileId = "1kC7fkhY0aETchfNKXOEhr-9H7J4Rl9fHicna1yevOUY"; // Ferrari_NV_Annual_Report Google Doc
 
   try {
