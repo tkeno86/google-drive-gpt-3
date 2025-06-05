@@ -3,7 +3,7 @@ import fetch from 'node-fetch';
 
 export default async function handler(req, res) {
   // ✅ Hardcoded access token (temporary for testing only)
-  const accessToken = "ya29.a0AW4Xtxgn8VlqZ_JSfJ100twPWqyPNREwPSengDn8M7KgRbXQrHpbgALNFfLUPWT3LPXuqzCL0e6AUZsdE48Y2FWNSSVC2hNmEALTWfHbq4dQD5llTup4CHFBTTqeEk6gLK3OLPdeTKJtlNKY-rSZh3A9ZQjiInz7CmnLInbDaCgYKAYwSARYSFQHGX2MiG6oc543_HNlBYDr05__XYQ0175";
+  const accessToken = "ya29.a0AW4XtxgAlZV4N1HYucsKNkXmqzi64GYmeapYHPv-Ilv1v5-Pcvgm24Jm0_VCB8Ih6jndZ0cXsU94dRoa4bRQHMQOg8MCNJRL_9ZWLlKTtbINorvvFjyI_7_pD7QHSj0HzUFTbH_bnBzlmV670Ew5iJbmllaQOK7z5_fLz8i8aCgYKAeYSARYSFQHGX2Mi15Z5ymxF8yXkrUwPv0WaDw0175";
 
   // ✅ Folder ID — replace this with the one you want to list
   const folderId = "1kC7fkhY0aETchfNKXOEhr-9H7J4Rl9fHicna1yevOUY";
