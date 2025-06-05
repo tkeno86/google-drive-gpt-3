@@ -2,10 +2,10 @@
 import fetch from 'node-fetch';
 
 export default async function handler(req, res) {
-  // ✅ Hardcoded token — FOR TESTING ONLY
-  const accessToken = "ya29.a0AW4XtxjhtcGzzHqElkyYFN3aG6vpZA5ApaKVZvg73qccGM-DdtOA6AG1czShC5i40ijqKorfRXVgEBK4vIV1ldUUXcNR4jbdr0vrTN8khUps7T7oIijwe1ebuUQXI_FW5Cjofz_2V9xPQC0N9sB8szH9PYp9sSBKpKKJU3-1aCgYKAS8SARYSFQHGX2Mi33dkqRTRjVIRIPqpxRsxSw0175";
+  // ✅ New hardcoded access token — for testing only
+  const accessToken = "ya29.a0AW4XtxgFC5b_ybEhSaVZKprv3xdk6WrnYf8D6VDmG46BI9oGUg3f1WwbAALTVoceZ8hovj35zdF2sZCGcklURLojkOsg4LcJU5du0R5Zuz_qEnD0vH7ZWi2cAJSVTmMFeWgdhTaAe8opWtA5V3iQb12mpNaauVcy3q9vVP76aCgYKATYSARYSFQHGX2MiR8HwTe7Vhvd2hnOYBHNzFA0175";
 
-  // ✅ Hardcoded Google Drive file ID (ASOS Annual Report 2024)
+  // ✅ Known good Google Drive file ID (ASOS Annual Report 2024)
   const fileId = "1xwMgwhqw2lK7ifrCVveRVKFJ6muBUWccQ9ZaI93N2U0";
 
   try {
