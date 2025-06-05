@@ -3,7 +3,7 @@
 export default async function handler(req, res) {
   // ✅ Hardcoded values for testing
   const accessToken = "ya29.a0AW4Xtxgn8VlqZ_JSfJ100twPWqyPNREwPSengDn8M7KgRbXQrHpbgALNFfLUPWT3LPXuqzCL0e6AUZsdE48Y2FWNSSVC2hNmEALTWfHbq4dQD5llTup4CHFBTTqeEk6gLK3OLPdeTKJtlNKY-rSZh3A9ZQjiInz7CmnLInbDaCgYKAYwSARYSFQHGX2MiG6oc543_HNlBYDr05__XYQ0175";
-  const fileId = "1xwMgwhqw2lK7ifrCVveRVKFJ6muBUWccQ9ZaI93N2U0"; // ASOS_Annual_Report_2024 Google Doc
+  const fileId = "1kC7fkhY0aETchfNKXOEhr-9H7J4Rl9fHicna1yevOUY"; // Ferrari_NV_Annual_Report Google Doc
 
   try {
     const exportUrl = `https://www.googleapis.com/drive/v3/files/${fileId}/export?mimeType=text/plain`;
