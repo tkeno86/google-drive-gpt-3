@@ -6,7 +6,7 @@ export default async function handler(req, res) {
   const accessToken = "ya29.a0AW4XtxgFC5b_ybEhSaVZKprv3xdk6WrnYf8D6VDmG46BI9oGUg3f1WwbAALTVoceZ8hovj35zdF2sZCGcklURLojkOsg4LcJU5du0R5Zuz_qEnD0vH7ZWi2cAJSVTmMFeWgdhTaAe8opWtA5V3iQb12mpNaauVcy3q9vVP76aCgYKATYSARYSFQHGX2MiR8HwTe7Vhvd2hnOYBHNzFA0175";
 
   // ✅ Known good Google Drive file ID (ASOS Annual Report 2024)
-  const fileId = "1xwMgwhqw2lK7ifrCVveRVKFJ6muBUWccQ9ZaI93N2U0";
+  const fileId = "1nUQ3DHgbnipk-8w4dT2pNka0KhkQ5588I_QZ251xtCE";
 
   try {
     const url = `https://www.googleapis.com/drive/v3/files/${fileId}/export?mimeType=text/plain`;
