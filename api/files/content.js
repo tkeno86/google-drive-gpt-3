@@ -3,7 +3,7 @@ import fetch from 'node-fetch';
 
 export default async function handler(req, res) {
   // ✅ New hardcoded access token — for testing only
-  const accessToken = "ya29.a0AW4XtxiSrP8D0yOK66pn1-VQ2ZswDXXJ3PEkWl7LYD85uwSpFs_bf73jXAp44PIz4Q46Vj9Z0Pa5Vf8b3MU8lXPDTezGmQjNNHrznhfhkX8THCYPwpaoORTX1uaO1h3JwlUz6MFboX2ohEi7H0pJTbA52h4pFv5bf_MvsNRKaCgYKAcASARYSFQHGX2MiO8JhZCgPmreK2xfTB2fcJA0175";
+  const accessToken = "ya29.a0AW4Xtxi7A84W8zo5C8hHKJJsP7UBcg2CJUSJVMppdxEx9onYeO4F7cijP3KKlmWcKxWQRpqh-xdW0Ek-YPrG7ZU62b8baY4ORkxg8e0xPlzt61JMBDXlGj4PA7swBfPyrhy1cixAKz1M9_e8izh6Riw7tiDNq7s1iW3jDBELaCgYKAV4SARYSFQHGX2Mi6J7VJHSMGW6uEtQYU7jRqQ0175";
 
   // ✅ Known good Google Drive file ID (ASOS Annual Report 2024)
   const fileId = "1GuRvtLFfA1fSeKjGVZY5SfEyPtpBZoCOa8Jkt5-vXaU";
