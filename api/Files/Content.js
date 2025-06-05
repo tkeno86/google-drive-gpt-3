@@ -6,7 +6,7 @@ export default async function handler(req, res) {
 
   const cookies = req.headers.cookie ? parse(req.headers.cookie) : {};
   const rawCookie = cookies['google_token'];
-  if (!rawCookie) return res.status(401).json({ error: 'Missing token cookie' });
+  if (!rawCookie) return res.status(401).json({ error: 'Missing google_token cookie' });
 
   let access_token;
   try {
@@ -16,16 +16,24 @@ export default async function handler(req, res) {
   }
 
   try {
-    const url = `https://www.googleapis.com/drive/v3/files/${fileId}/export?mimeType=text/plain`;
-    const response = await fetch(url, {
+    // Try exporting Google Docs as HTML (more reliable than text/plain)
+    const exportUrl = `https://www.googleapis.com/drive/v3/files/${fileId}/export?mimeType=text/html`;
+
+    const response = await fetch(exportUrl, {
       headers: { Authorization: `Bearer ${access_token}` },
     });
 
-    const text = await response.text();
-    if (!response.ok) return res.status(response.status).json({ error: text });
+    const html = await response.text();
 
-    res.status(200).json({ content: text });
+    if (!response.ok) {
+      return res.status(response.status).json({
+        error: 'Failed to export file (likely not a Google Doc)',
+        details: html,
+      });
+    }
+
+    res.status(200).json({ content: html });
   } catch (err) {
-    res.status(500).json({ error: 'Failed to fetch file content', details: err.message });
+    res.status(500).json({ error: 'Failed to export file', details: err.message });
   }
 }
