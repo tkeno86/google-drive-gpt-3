@@ -1,5 +1,3 @@
-// /api/list-files.js
-
 import { parse } from 'cookie';
 
 export default async function handler(req, res) {
@@ -10,10 +8,17 @@ export default async function handler(req, res) {
   }
 
   const cookies = req.headers.cookie ? parse(req.headers.cookie) : {};
-  const token = cookies['access_token'] || req.headers.authorization?.split('Bearer ')[1];
+  const rawCookie = cookies['google_token'];
 
-  if (!token) {
-    return res.status(401).json({ error: 'Missing access token' });
+  if (!rawCookie) {
+    return res.status(401).json({ error: 'Missing google_token cookie' });
+  }
+
+  let access_token;
+  try {
+    access_token = JSON.parse(rawCookie).access_token;
+  } catch (err) {
+    return res.status(400).json({ error: 'Invalid token format' });
   }
 
   try {
@@ -22,7 +27,7 @@ export default async function handler(req, res) {
 
     const driveRes = await fetch(`https://www.googleapis.com/drive/v3/files?q=${query}&fields=${fields}`, {
       headers: {
-        Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${access_token}`,
       },
     });
 
