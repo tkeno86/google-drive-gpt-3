@@ -1,34 +1,36 @@
-// /api/get-file-content.js
-
-import { parse } from 'cookie';
+import fetch from 'node-fetch';
 
 export default async function handler(req, res) {
-  const { fileId } = req.query;
+  // ✅ Use fileId from query param or default to ASOS report
+  const fileId = req.query.fileId || '1xwMgwhqw2lK7ifrCVveRVKFJ6muBUWccQ9ZaI93N2U0';
 
-  // Step 1: Check if fileId is present
-  if (!fileId) {
-    return res.status(400).json({ error: 'Missing fileId query parameter' });
-  }
+  // ✅ Hardcoded latest access token for testing
+  const accessToken = 'ya29.a0AW4XtxjhtcGzzHqElkyYFN3aG6vpZA5ApaKVZvg73qccGM-DdtOA6AG1czShC5i40ijqKorfRXVgEBK4vIV1ldUUXcNR4jbdr0vrTN8khUps7T7oIijwe1ebuUQXI_FW5Cjofz_2V9xPQC0N9sB8szH9PYp9sSBKpKKJU3-1aCgYKAS8SARYSFQHGX2Mi33dkqRTRjVIRIPqpxRsxSw0175';
 
-  // Step 2: Get the access token from cookie
-  const cookies = req.headers.cookie ? parse(req.headers.cookie) : {};
-  const token = cookies['access_token'];
+  const driveUrl = `https://www.googleapis.com/drive/v3/files/${fileId}/export?mimeType=text/plain`;
 
-  if (!token) {
-    return res.status(401).json({ error: 'Missing access token' });
-  }
-
-  // Step 3: Fetch the file content from Google Drive
   try {
-    const driveRes = await fetch(`https://www.googleapis.com/drive/v3/files/${fileId}?alt=media`, {
+    const response = await fetch(driveUrl, {
       headers: {
-        Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${accessToken}`,
       },
     });
 
-    const content = await driveRes.text(); // or .arrayBuffer() for binary files
-    res.status(200).send(content);
+    if (!response.ok) {
+      const errorText = await response.text();
+      return res.status(response.status).json({
+        error: 'Failed to fetch file',
+        detail: errorText,
+      });
+    }
+
+    const text = await response.text();
+    res.setHeader('Content-Type', 'text/plain');
+    return res.status(200).send(text);
   } catch (err) {
-    res.status(500).json({ error: 'Failed to fetch file content', details: err.message });
+    return res.status(500).json({
+      error: 'Unexpected server error',
+      message: err.message,
+    });
   }
 }
