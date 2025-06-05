@@ -16,7 +16,6 @@ export default async function handler(req, res) {
   }
 
   try {
-    // Try exporting Google Docs as HTML (more reliable than text/plain)
     const exportUrl = `https://www.googleapis.com/drive/v3/files/${fileId}/export?mimeType=text/html`;
 
     const response = await fetch(exportUrl, {
@@ -37,3 +36,4 @@ export default async function handler(req, res) {
     res.status(500).json({ error: 'Failed to export file', details: err.message });
   }
 }
+
