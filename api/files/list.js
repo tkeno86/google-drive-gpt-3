@@ -1,47 +1,33 @@
-import { parse } from 'cookie';
+// /api/files/list.js
+import fetch from 'node-fetch';
 
 export default async function handler(req, res) {
-  const { folderId } = req.query;
+  // ✅ Hardcoded access token (temporary for testing only)
+  const accessToken = "ya29.a0AW4XtxiSrP8D0yOK66pn1-VQ2ZswDXXJ3PEkWl7LYD85uwSpFs_bf73jXAp44PIz4Q46Vj9Z0Pa5Vf8b3MU8lXPDTezGmQjNNHrznhfhkX8THCYPwpaoORTX1uaO1h3JwlUz6MFboX2ohEi7H0pJTbA52h4pFv5bf_MvsNRKaCgYKAcASARYSFQHGX2MiO8JhZCgPmreK2xfTB2fcJA0175";
 
-  if (!folderId) {
-    return res.status(400).json({ error: 'Missing folderId query parameter' });
-  }
-
-  const cookies = req.headers.cookie ? parse(req.headers.cookie) : {};
-  let token;
-
-  if (cookies.google_token) {
-    const tokenData = JSON.parse(cookies.google_token);
-    token = tokenData.access_token;
-  } else if (req.headers.authorization?.startsWith('Bearer ')) {
-    token = req.headers.authorization.split(' ')[1];
-  }
-
-  if (!token) {
-    return res.status(401).json({ error: 'Missing access token or cookie' });
-  }
+  // ✅ Folder ID — replace this with the one you want to list
+  const folderId = "1kHwi2Pd-9LDuV4OOY-9yw_v4jSbCZHhZ";
 
   try {
-    const query = encodeURIComponent(`'${folderId}' in parents`);
-    const fields = encodeURIComponent('files(id,name,mimeType)');
+    const url = `https://www.googleapis.com/drive/v3/files?q='${folderId}'+in+parents&fields=files(id,name,mimeType)`;
 
-    const driveRes = await fetch(
-      `https://www.googleapis.com/drive/v3/files?q=${query}&fields=${fields}`,
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
+    const response = await fetch(url, {
+      headers: {
+        Authorization: `Bearer ${accessToken}`
       }
-    );
+    });
 
-    const data = await driveRes.json();
-
-    if (!driveRes.ok) {
-      return res.status(driveRes.status).json(data);
+    if (!response.ok) {
+      const errorText = await response.text();
+      console.error("Google API Error:", errorText);
+      return res.status(response.status).send(`Google API Error: ${errorText}`);
     }
 
+    const data = await response.json();
     res.status(200).json(data);
+
   } catch (err) {
-    res.status(500).json({ error: 'Failed to fetch from Google Drive', details: err.message });
+    console.error("Function crash:", err);
+    res.status(500).send(`Internal error: ${err.message}`);
   }
 }
