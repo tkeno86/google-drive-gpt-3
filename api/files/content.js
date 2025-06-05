@@ -1,4 +1,5 @@
 import { parse } from 'cookie';
+import { JSDOM } from 'jsdom';
 
 export default async function handler(req, res) {
   const { fileId } = req.query;
@@ -17,7 +18,6 @@ export default async function handler(req, res) {
 
   try {
     const exportUrl = `https://www.googleapis.com/drive/v3/files/${fileId}/export?mimeType=text/html`;
-
     const response = await fetch(exportUrl, {
       headers: { Authorization: `Bearer ${access_token}` },
     });
@@ -31,9 +31,14 @@ export default async function handler(req, res) {
       });
     }
 
-    res.status(200).json({ content: html });
+    // ✅ Clean the HTML into plain text using jsdom
+    const dom = new JSDOM(html);
+    const textContent = dom.window.document.body.textContent;
+
+    res.status(200).json({ content: textContent.trim() });
   } catch (err) {
-    res.status(500).json({ error: 'Failed to export file', details: err.message });
+    res.status(500).json({ error: 'Failed to export and clean file', details: err.message });
   }
 }
+
 
