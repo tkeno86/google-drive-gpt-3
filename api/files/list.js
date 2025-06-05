@@ -8,28 +8,31 @@ export default async function handler(req, res) {
   }
 
   const cookies = req.headers.cookie ? parse(req.headers.cookie) : {};
-  const rawCookie = cookies['google_token'];
+  let token;
 
-  if (!rawCookie) {
-    return res.status(401).json({ error: 'Missing google_token cookie' });
+  if (cookies.google_token) {
+    const tokenData = JSON.parse(cookies.google_token);
+    token = tokenData.access_token;
+  } else if (req.headers.authorization?.startsWith('Bearer ')) {
+    token = req.headers.authorization.split(' ')[1];
   }
 
-  let access_token;
-  try {
-    access_token = JSON.parse(rawCookie).access_token;
-  } catch (err) {
-    return res.status(400).json({ error: 'Invalid token format' });
+  if (!token) {
+    return res.status(401).json({ error: 'Missing access token or cookie' });
   }
 
   try {
     const query = encodeURIComponent(`'${folderId}' in parents`);
     const fields = encodeURIComponent('files(id,name,mimeType)');
 
-    const driveRes = await fetch(`https://www.googleapis.com/drive/v3/files?q=${query}&fields=${fields}`, {
-      headers: {
-        Authorization: `Bearer ${access_token}`,
-      },
-    });
+    const driveRes = await fetch(
+      `https://www.googleapis.com/drive/v3/files?q=${query}&fields=${fields}`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
 
     const data = await driveRes.json();
 
