@@ -2,7 +2,7 @@
 
 export default async function handler(req, res) {
   // ✅ Hardcoded values for testing
-  const accessToken = "ya29.a0AW4XtxjhtcGzzHqElkyYFN3aG6vpZA5ApaKVZvg73qccGM-DdtOA6AG1czShC5i40ijqKorfRXVgEBK4vIV1ldUUXcNR4jbdr0vrTN8khUps7T7oIijwe1ebuUQXI_FW5Cjofz_2V9xPQC0N9sB8szH9PYp9sSBKpKKJU3-1aCgYKAS8SARYSFQHGX2Mi33dkqRTRjVIRIPqpxRsxSw0175";
+  const accessToken = "ya29.a0AW4Xtxgn8VlqZ_JSfJ100twPWqyPNREwPSengDn8M7KgRbXQrHpbgALNFfLUPWT3LPXuqzCL0e6AUZsdE48Y2FWNSSVC2hNmEALTWfHbq4dQD5llTup4CHFBTTqeEk6gLK3OLPdeTKJtlNKY-rSZh3A9ZQjiInz7CmnLInbDaCgYKAYwSARYSFQHGX2MiG6oc543_HNlBYDr05__XYQ0175";
   const fileId = "1xwMgwhqw2lK7ifrCVveRVKFJ6muBUWccQ9ZaI93N2U0"; // ASOS_Annual_Report_2024 Google Doc
 
   try {
